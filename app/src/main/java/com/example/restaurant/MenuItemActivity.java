@@ -5,36 +5,33 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 public class MenuItemActivity extends AppCompatActivity {
-
-    String choice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Toast.makeText(this , "MenuItemActivity" , Toast.LENGTH_SHORT).show();
+        // Gets the user selected MenuItem using an Intent
         Intent intent = getIntent();
         MenuItem menuItem = (MenuItem) intent.getSerializableExtra("menuItem");
 
+        // Assignment of the UI elements
         TextView detailName = findViewById(R.id.detailName);
         TextView detailDescription = findViewById(R.id.detailText);
         TextView detailPrice = findViewById(R.id.detailPrice);
         ImageView detailImage = findViewById(R.id.detailImage);
 
+        // Sets the fields of the UI elements using data from the selected menuItem
         detailName.setText(menuItem.getName());
         detailDescription.setText(menuItem.getDescription());
-        detailPrice.setText(menuItem.getPrice());
+        detailPrice.setText("$ " + menuItem.getPrice());
         String imageUrl;
+
+        // Uses Picasso to load the Image of the selected menuItem
         imageUrl = menuItem.getImageUrl();
         Picasso.with(getApplicationContext()).load(imageUrl).into(detailImage);
     }
-
 }

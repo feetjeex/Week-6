@@ -2,7 +2,6 @@ package com.example.restaurant;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,29 +18,27 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
     String name;
     String price;
 
-    private static final String TAG = "MainActivity";
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        // If no convertView exists, creates a new one
         if( convertView == null ){
-            //We must create a View:
+
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.menu_row, parent, false);
         }
 
-        //Here we can do changes to the convertView, such as set a text on a TextView
-        //or an image on an ImageView.
+        //Declares and assigns a MenuItem object named pointer and fills it with data
         MenuItem pointer = menuItems.get(position);
 
+        // Assigns the UI elements
+        // Fills the UI elements with text and an image from the pointer MenuItem
+        // Returns the filled convertView
         TextView menuName = convertView.findViewById(R.id.menuName);
         name = pointer.getName();
         menuName.setText(name);
-        Log.d(TAG, "getView: " + name);
-
         TextView menuPrice = convertView.findViewById(R.id.menuPrice);
-        price = pointer.getName();
-        menuPrice.setText(price);
-
+        price = pointer.getPrice();
+        menuPrice.setText("$ " + price);
         ImageView menuImage = convertView.findViewById(R.id.menuImage);
         String imageUrl;
         imageUrl = pointer.getImageUrl();
@@ -49,6 +46,7 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
         return convertView;
     }
 
+    // Constructor of the MenuItemAdapter
     public MenuItemAdapter(Context context, int resource, ArrayList<MenuItem> objects) {
         super(context, resource, objects);
         menuItems = objects;

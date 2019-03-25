@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class MenuItem implements Serializable {
 
+    // Implements Getters and Setters for the MenuItem object
     String name, description, imageUrl, price, category;
 
     public String getName() {

@@ -1,10 +1,8 @@
 package com.example.restaurant;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,40 +13,38 @@ import java.util.ArrayList;
 
 public class CategoriesActivity extends AppCompatActivity implements CategoriesRequest.Callback {
 
-    Cursor cursor;
-    private static final String TAG = "MainActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
+        // Creates a new CategoriesRequest object, and calls the getCategories method on it
         CategoriesRequest x = new CategoriesRequest(this);
         x.getCategories(this);
-        //Toast.makeText(this , "Started" , Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void gotCategories(ArrayList<String> categories) {
-        //Toast.makeText(this , categories.get(0) , Toast.LENGTH_LONG).show();
 
-        // Setting the ListView categoriesListView
+        // If the ArrayList categories is received, sets the ArrayAdapter to the ListView categoriesListView
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
         ListView categoriesListView = findViewById(R.id.categoriesListView);
         categoriesListView.setAdapter(categoriesAdapter);
 
+        // Sets an OnItemClickListener to the ListView categoriesListView
         AdapterView.OnItemClickListener listViewListener = new ClickViewListener();
         categoriesListView.setOnItemClickListener(listViewListener);
     }
 
+    // Implements the OnItemClickListener
     private class ClickViewListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            // If the user clicks on one of the categories in the ListView
+            // Saves the users choice as a String and transfers the user to the next activity using Intent
             String clickedCategory = (String) parent.getItemAtPosition(position);
             Intent intent = new Intent(CategoriesActivity.this, MenuActivity.class);
-            Log.d(TAG, "clickedCategory = " + clickedCategory);
             intent.putExtra("choice", clickedCategory);
             startActivity(intent);
         }
@@ -56,6 +52,8 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesR
 
     @Override
     public void gotCategoriesError(String message) {
+
+        // In case an error occurs during the downloading of the categories
         Toast.makeText(this, "Internet problem.", Toast.LENGTH_LONG).show();
     }
 }
