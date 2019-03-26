@@ -15,7 +15,7 @@ Information on the dishes is downloaded as JSON. Users are able to view a more d
 
 - User view after selecting the entree option.
 
-<img src="https://github.com/feetjeex/Week-6/blob/master/maincourseActivityLandscape.png" width="200" height="400" />
+<img src="https://github.com/feetjeex/Week-6/blob/master/maincourseActivityLandscape.png" width="400" height="200" />
 
 - Both the appetizer and entree view are also available in landscape mode.
 
